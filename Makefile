@@ -1,22 +1,22 @@
 srctree := .
 
-CFLAGS :=-lm -I$(srctree)/include/ -Wall -Wpedantic -g -Werror
+CFLAGS :=-lm -I$(srctree)/include/ -Wall -Wpedantic -Werror
 CC := cc
-obj := fb.o
+obj := bin/fb.o
 
-mandelbrot: $(obj)  mandelbrot.o
-	$(CC) -o bin/mandelbrot mandelbrot.o $(obj) $(CFLAGS)
+mandelbrot: $(obj)  bin/mandelbrot.o
+	$(CC) -o bin/mandelbrot bin/mandelbrot.o $(obj) $(CFLAGS)
 
-raycaster: $(obj) raycaster.o
-	$(CC) -o bin/raycaster raycaster.o $(obj) $(CFLAGS)
+raycaster: $(obj) bin/raycaster.o
+	$(CC) -o bin/raycaster bin/raycaster.o $(obj) $(CFLAGS)
 
-test: $(obj) test.o
-	$(CC) -o bin/test test.o $(obj) $(CFLAGS)
+test: $(obj) bin/test.o
+	$(CC) -o bin/test bin/test.o $(obj) $(CFLAGS)
 
-%.o: %.c
+bin/%.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 clean: 
-	rm -f $(obj) 
+	rm -f bin/* 
 
 .PHONY: clean mandelbrot raycaster test

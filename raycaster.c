@@ -5,8 +5,7 @@
 
 #define PLAYER_INCREMENT 0.2
 
-char map[8][8] =
-{
+char map[8][8] = {
 	{1,1,1,1,1,1,1,1},
 	{1,0,0,0,0,0,0,1},
 	{1,0,0,0,0,0,0,1},
@@ -74,7 +73,7 @@ int main()
 	do {
 		draw_map_2d(fb);
 		fb_draw_rect(&fb, player.x * 200, 
-				player.y * 200, 1, 1, color);
+				player.y * 200, 5, 5, color);
 		c = getchar();
 		/* convert to lowercase */
 		if(c >= 'A' && c <= 'Z')
