@@ -1,8 +1,9 @@
-srctree := .
-
-CFLAGS :=-lm -I$(srctree)/include/ -Wall -Wpedantic -Werror
+CFLAGS :=-lm -I./include/ -Wall -Wpedantic -Werror
 CC := cc
 obj := bin/fb.o
+
+test: $(obj) bin/test.o
+	$(CC) -o bin/test bin/test.o $(obj) $(CFLAGS)
 
 mandelbrot: $(obj)  bin/mandelbrot.o
 	$(CC) -o bin/mandelbrot bin/mandelbrot.o $(obj) $(CFLAGS)
@@ -10,8 +11,6 @@ mandelbrot: $(obj)  bin/mandelbrot.o
 raycaster: $(obj) bin/raycaster.o
 	$(CC) -o bin/raycaster bin/raycaster.o $(obj) $(CFLAGS)
 
-test: $(obj) bin/test.o
-	$(CC) -o bin/test bin/test.o $(obj) $(CFLAGS)
 
 bin/%.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)

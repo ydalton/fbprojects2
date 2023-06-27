@@ -24,9 +24,9 @@ int fb_close(unsigned char **fbmem, int *fb)
 
 void fb_set_pixel(unsigned char **fb, unsigned int x, unsigned y, color_t color)
 {
-	(*fb)[4 * (x + SCREEN_WIDTH * y)] = color[0];
-	(*fb)[4 * (x + SCREEN_WIDTH * y)+1] = color[1];
-	(*fb)[4 * (x + SCREEN_WIDTH * y)+2] = color[2];
+	(*fb)[4 * (x + (SCREEN_WIDTH ) * y)] = color[2];
+	(*fb)[4 * (x + (SCREEN_WIDTH ) * y)+1] = color[1];
+	(*fb)[4 * (x + (SCREEN_WIDTH ) * y)+2] = color[0];
 }
 
 void fb_draw_line_horizontal(unsigned char **fb, unsigned int x, unsigned int y,
@@ -49,7 +49,7 @@ void fb_draw_line_vertical(unsigned char **fb, unsigned int x, unsigned int y,
 		return;
 	if(length < 0)
 		length = 0;
-	if(length + x > SCREEN_HEIGHT)
+	if(length + y > SCREEN_HEIGHT)
 		length = SCREEN_HEIGHT - y;
 	for(int i = 0; i < length; i++)
 		fb_set_pixel(fb, x, y + i, color);
@@ -80,5 +80,10 @@ void fb_draw_line(unsigned char **fb, unsigned int x1, unsigned int y1,
 		y = a * (i - x1) + y1;
 		fb_set_pixel(fb, i, y, color);
 	}
+}
+
+void fb_flush(unsigned char **fb) 
+{
+	msync(&fb, SCREEN_SIZE, MS_SYNC);
 }
 
